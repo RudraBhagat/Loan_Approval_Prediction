@@ -1,0 +1,241 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Approval Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 20px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin: 10px 0 5px;
+            color: #555;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        h3 {
+            color: #4CAF50;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2>Loan Approval Prediction</h2>
+
+    <form action="/predict" method="post">
+        <label for="Gender">Gender:</label>
+        <select name="Gender" required>
+            <option value="">Select</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+
+        <label for="Married">Married:</label>
+        <select name="Married" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <label for="Dependents">Dependents:</label>
+        <input type="number" name="Dependents" min="0" max="10" required>
+
+        <label for="Education">Education:</label>
+        <select name="Education" required>
+            <option value="">Select</option>
+            <option value="0">Graduate</option>
+            <option value="1">Not Graduate</option>
+        </select>
+
+        <label for="Self_Employed">Self Employed:</label>
+        <select name="Self_Employed" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <label for="Credit_History">Credit History:</label>
+        <select name="Credit_History" required>
+            <option value="">Select</option>
+            <option value="1">Good</option>
+            <option value="0">Bad</option>
+        </select>
+
+        <label for="Property_Area">Property Area:</label>
+        <select name="Property_Area" required>
+            <option value="">Select</option>
+            <option value="0">Rural</option>
+            <option value="1">Semiurban</option>
+            <option value="2">Urban</option>
+        </select>
+
+        <label for="ApplicantIncomelog">Applicant Income (log):</label>
+        <input type="number" name="ApplicantIncomelog" step="0.01" required>
+        
+        <label for="LoanAmount_log">Loan Amount (log):</label>
+        <input type="number" name="LoanAmount_log" step="0.01" required>
+
+        <label for="Loan_Amount_Term_log">Loan Term (log):</label>
+        <input type="number" name="Loan_Amount_Term_log" step="0.01" required>
+
+        <label for="Total_Income_log">Total Income (log):</label>
+        <input type="number" name="Total_Income_log" step="0.01" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <h3>Loan Status: {{ prediction }}</h3>
+    {% endif %}
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Approval Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Loan Approval Prediction</h2>
+
+    <form action="/predict" method="post">
+        <label for="Gender">Gender:</label>
+        <select name="Gender" required>
+            <option value="">Select</option>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
+        </select>
+
+        <label for="Married">Married:</label>
+        <select name="Married" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <label for="Dependents">Dependents:</label>
+        <input type="number" name="Dependents" min="0" max="10" required>
+
+        <label for="Education">Education:</label>
+        <select name="Education" required>
+            <option value="">Select</option>
+            <option value="0">Graduate</option>
+            <option value="1">Not Graduate</option>
+        </select>
+
+        <label for="Self_Employed">Self Employed:</label>
+        <select name="Self_Employed" required>
+            <option value="">Select</option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <label for="Credit_History">Credit History:</label>
+        <select name="Credit_History" required>
+            <option value="">Select</option>
+            <option value="1">Good</option>
+            <option value="0">Bad</option>
+        </select>
+
+        <label for="Property_Area">Property Area:</label>
+        <select name="Property_Area" required>
+            <option value="">Select</option>
+            <option value="0">Rural</option>
+            <option value="1">Semiurban</option>
+            <option value="2">Urban</option>
+        </select>
+
+        <label for="ApplicantIncomelog">Applicant Income:</label>
+        <input type="number" name="ApplicantIncomelog" step="0.01" required>
+        
+        <label for="LoanAmount_log">Loan Amount:</label>
+        <input type="number" name="LoanAmount_log" step="0.01" required>
+
+        <label for="Loan_Amount_Term_log">Loan Term (Month):</label>
+        <input type="number" name="Loan_Amount_Term_log" step="0.01" required>
+
+        <label for="Total_Income_log">Total Income:</label>
+        <input type="number" name="Total_Income_log" step="0.01" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+        <h3 class="prediction-{% if prediction == 'Approved' %}success{% else %}error{% endif %}">
+            Loan Status: {{ prediction }}
+        </h3>
+    {% endif %}
+
+    <script>
+        // Optional JavaScript for enhanced interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Highlight labels when their inputs are focused
+            const inputs = document.querySelectorAll('input, select');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.previousElementSibling.style.color = 'var(--primary)';
+                });
+                
+                input.addEventListener('blur', () => {
+                    input.previousElementSibling.style.color = '';
+                });
+
+                // Check for existing values to apply styles
+                if (input.value) {
+                    input.classList.add('has-value');
+                }
+                
+                input.addEventListener('change', () => {
+                    if (input.value) {
+                        input.classList.add('has-value');
+                    } else {
+                        input.classList.remove('has-value');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
